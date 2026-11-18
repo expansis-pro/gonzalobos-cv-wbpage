@@ -13,6 +13,9 @@ const LIMITS = {
 	message: 5000,
 };
 
+// Debe coincidir con minLength del <textarea> en src/components/ContactForm.jsx
+const MESSAGE_MIN_LENGTH = 10;
+
 // Campo trampa: los humanos no lo ven; los bots suelen rellenarlo.
 // Debe coincidir con HONEYPOT_FIELD en src/components/ContactForm.jsx
 const HONEYPOT_FIELD = 'hp_website';
@@ -48,7 +51,8 @@ const validateContact = (body) => {
 	if (!data.user_email) errors.push('user_email es requerido');
 	else if (!EMAIL_RE.test(data.user_email)) errors.push('user_email no tiene un formato válido');
 	if (!data.message) errors.push('message es requerido');
-	else if (data.message.length < 5) errors.push('message es demasiado corto');
+	else if (data.message.length < MESSAGE_MIN_LENGTH)
+		errors.push(`message es demasiado corto (mínimo ${MESSAGE_MIN_LENGTH} caracteres)`);
 
 	return { data, errors };
 };

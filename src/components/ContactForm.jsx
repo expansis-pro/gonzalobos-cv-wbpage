@@ -15,7 +15,8 @@ export const ContactForm = () => {
 	const form = useRef();
 	const [isSending, setIsSending] = useState(false);
 	const [isSuccess, setIsSuccess] = useState(false);
-	const [isError, setIsError] = useState(false);
+	// null = sin error; '' = error sin detalle del servidor (red/timeout); string = data.error de la API
+	const [errorMessage, setErrorMessage] = useState(null);
 
 	const sendEmail = async (e) => {
 		e.preventDefault();
@@ -23,7 +24,7 @@ export const ContactForm = () => {
 
 		setIsSending(true);
 		setIsSuccess(false);
-		setIsError(false);
+		setErrorMessage(null);
 
 		const formData = new FormData(form.current);
 		const payload = {
@@ -46,13 +47,19 @@ export const ContactForm = () => {
 			});
 
 			const data = await response.json().catch(() => ({ ok: false }));
-			if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
+			if (!response.ok || !data.ok) {
+				console.error('ContactForm:', data.error || `HTTP ${response.status}`);
+				// Mostramos el mensaje del servidor; si no viene, el genérico traducido.
+				setErrorMessage(typeof data.error === 'string' ? data.error : '');
+				return;
+			}
 
 			setIsSuccess(true);
 			form.current.reset();
 		} catch (error) {
+			// Error de red o timeout: no hay respuesta del servidor que mostrar.
 			console.error('ContactForm:', error);
-			setIsError(true);
+			setErrorMessage('');
 		} finally {
 			clearTimeout(timeoutId);
 			setIsSending(false);
@@ -90,7 +97,7 @@ export const ContactForm = () => {
 				<label htmlFor='message' className={labelClass}>
 					{t('contact.formMessage')}
 				</label>
-				<textarea name='message' id='message' rows='4' className={inputClass} maxLength={5000} required />
+				<textarea name='message' id='message' rows='4' className={inputClass} minLength={10} maxLength={5000} required />
 			</div>
 
 			{/* Honeypot anti-spam: invisible para personas y lectores de pantalla */}
@@ -110,7 +117,9 @@ export const ContactForm = () => {
 
 			<div aria-live='polite'>
 				{isSuccess && <p className='text-emerald-700 font-bold text-center text-xs uppercase tracking-wide'>{t('contact.formSuccess')}</p>}
-				{isError && <p className='text-red-700 font-bold text-center text-xs uppercase tracking-wide'>{t('contact.formError')}</p>}
+				{errorMessage !== null && (
+					<p className='text-red-700 font-bold text-center text-xs uppercase tracking-wide'>{errorMessage || t('contact.formError')}</p>
+				)}
 			</div>
 		</form>
 	);
