@@ -6,7 +6,7 @@ import i18n from './i18n';
 import { getPageSeo, getPrerenderHeadElements, normalizeLang } from './seo';
 
 export async function prerender(data) {
-	// "/" se redirige con 301 a "/es" en firebase.json; aquí solo se renderiza como respaldo
+	// "/" se redirige con 301 a "/es" en vercel.json; aquí solo se renderiza como respaldo
 	const segment = (data.url || '/').split('/').filter(Boolean)[0];
 	const lang = normalizeLang(segment);
 

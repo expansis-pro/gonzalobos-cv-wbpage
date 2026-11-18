@@ -5,11 +5,12 @@ import SectionTitle from '../components/SectionTitle';
 import { FaGithub, FaLinkedin, FaClipboard, FaCheck, FaWhatsapp } from 'react-icons/fa';
 import { ContactForm } from '../components/ContactForm';
 import AnimatedSection from '../components/AnimatedSection';
+import { CONTACT_EMAIL, GITHUB_URL, LINKEDIN_URL, WHATSAPP_URL } from '../seo';
 
 const Contact = () => {
 	const { t, i18n } = useTranslation();
 	const [isCopied, setIsCopied] = useState(false);
-	const emailAddress = 'gonzalo.lobos.ramirez@gmail.com';
+	const emailAddress = CONTACT_EMAIL;
 	const isEn = i18n.language === 'en';
 
 	const handleCopyEmail = () => {
@@ -29,8 +30,8 @@ const Contact = () => {
 	};
 
 	const socialLinks = [
-		{ name: t('contact.linkedin'), icon: <FaLinkedin className='w-4 h-4' />, url: 'https://www.linkedin.com/in/gonzalo-lobos-ram%C3%ADrez/' },
-		{ name: t('contact.github'), icon: <FaGithub className='w-4 h-4' />, url: 'https://github.com/lobosgonza' },
+		{ name: t('contact.linkedin'), icon: <FaLinkedin className='w-4 h-4' />, url: LINKEDIN_URL },
+		{ name: t('contact.github'), icon: <FaGithub className='w-4 h-4' />, url: GITHUB_URL },
 	];
 
 	const blockClass =
@@ -67,7 +68,7 @@ const Contact = () => {
 							</button>
 
 							{/* BLOQUE 2: WHATSAPP DIRECTO CORPORATIVO */}
-							<a href='https://api.whatsapp.com/send/?phone=56965961086&text&type=phone_number&app_absent=0' target='_blank' rel='noopener noreferrer' className={blockClass}>
+							<a href={WHATSAPP_URL} target='_blank' rel='noopener noreferrer' className={blockClass}>
 								<div className='flex items-center space-x-4'>
 									<span className='text-primary group-hover:text-white transition-colors'>
 										<FaWhatsapp className='w-4 h-4' />

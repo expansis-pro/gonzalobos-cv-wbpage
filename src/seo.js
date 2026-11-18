@@ -17,6 +17,10 @@ export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/gonzalo-lobos-ram%C3%ADrez/';
 export const GITHUB_URL = 'https://github.com/lobosgonza';
+export const WHATSAPP_NUMBER = '56965961086';
+export const WHATSAPP_URL = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text&type=phone_number&app_absent=0`;
+export const CONTACT_EMAIL = 'gonzalo.lobos.ramirez@gmail.com';
+export const EMPLOYER = { name: 'Expansis Pro', url: 'https://www.expansispro.com/' };
 
 const KNOWS_ABOUT = [
 	'E-commerce',
@@ -33,6 +37,10 @@ const KNOWS_ABOUT = [
 	'Tailwind CSS',
 	'Frontend Web Development',
 	'Sales Automation',
+	'AI Automation',
+	'WhatsApp Business API',
+	'E-commerce Merchandising',
+	'Digital Marketing Analytics',
 ];
 
 const stripHtml = (value) =>
@@ -64,7 +72,6 @@ export function getPageSeo(lang) {
 		canonical: `${SITE_URL}/${locale}`,
 		title: i18n.t('seo.title', { lng: locale }),
 		description: i18n.t('seo.description', { lng: locale }),
-		keywords: i18n.t('seo.keywords', { lng: locale }),
 		image: OG_IMAGE,
 		imageAlt: i18n.t('about.imageAlt', { lng: locale }),
 	};
@@ -108,15 +115,26 @@ export function buildSchemaGraph(lang) {
 					addressCountry: 'CL',
 				},
 				nationality: { '@type': 'Country', name: 'Chile' },
-				knowsLanguage: ['es', 'en'],
+				email: `mailto:${CONTACT_EMAIL}`,
+				knowsLanguage: [
+					{ '@type': 'Language', name: 'Spanish', alternateName: 'es' },
+					{ '@type': 'Language', name: 'English', alternateName: 'en' },
+				],
+				hasOccupation: {
+					'@type': 'Occupation',
+					name: jobTitle,
+					occupationLocation: { '@type': 'Country', name: 'Chile' },
+					skills: KNOWS_ABOUT.join(', '),
+				},
 				alumniOf: [
 					{ '@type': 'CollegeOrUniversity', name: 'Universidad Adolfo Ibáñez' },
 					{ '@type': 'CollegeOrUniversity', name: 'Instituto Profesional ARCOS' },
 				],
 				worksFor: {
 					'@type': 'Organization',
-					name: 'Expansis Pro',
-					url: 'https://www.expansispro.com/',
+					'@id': `${EMPLOYER.url}#organization`,
+					name: EMPLOYER.name,
+					url: EMPLOYER.url,
 				},
 				sameAs: [LINKEDIN_URL, GITHUB_URL],
 				knowsAbout: KNOWS_ABOUT,
@@ -195,7 +213,6 @@ function getHeadDescriptors(lang) {
 
 	return [
 		{ type: 'meta', props: { name: 'description', content: seo.description } },
-		{ type: 'meta', props: { name: 'keywords', content: seo.keywords } },
 		{ type: 'meta', props: { name: 'author', content: SITE_NAME } },
 		{ type: 'meta', props: { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1' } },
 		{ type: 'link', props: { rel: 'canonical', href: seo.canonical } },

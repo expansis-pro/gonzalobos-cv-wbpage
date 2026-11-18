@@ -2,6 +2,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
+// Fuentes autoalojadas (mismo dominio, font-display: swap): no bloquean el primer render
+import '@fontsource-variable/inter';
+import '@fontsource-variable/oswald';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
 import './index.css';
 import i18n from './i18n.js';
 

@@ -1,42 +1,41 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next'; // <-- 1. Importar useTranslation
+// src/components/AnimatedSection.jsx
+import React, { useEffect, useRef } from 'react';
 
-// Las variantes de animación siguen igual
-const sectionVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.6,
-            ease: "easeOut"
-        }
-    }
-};
-
+/*
+ * Animación de entrada sin ocultar el HTML prerenderizado.
+ * El contenido sale del servidor VISIBLE (sin opacity:0), así se pinta desde el primer frame
+ * aunque el JS aún no cargue. Tras hidratar, solo las secciones que están fuera de la pantalla
+ * se preparan para animarse al entrar en el viewport (no hay parpadeo porque no se ven).
+ */
 const AnimatedSection = ({ children }) => {
-    // 2. Obtener el idioma actual
-    const { i18n } = useTranslation();
-    // Usamos split('-') para asegurar que 'es-ES' se trate como 'es'
-    const currentLang = i18n.language.split('-')[0];
+	const ref = useRef(null);
 
-    return (
-        <motion.div
-            // 3. Añadir el 'key' basado en el idioma
-            // Cuando el idioma cambie (ej. de 'es' a 'en'), 
-            // React destruirá el componente antiguo y creará uno nuevo,
-            // lo que reiniciará el estado de la animación.
-            key={currentLang}
+	useEffect(() => {
+		const el = ref.current;
+		if (!el || typeof IntersectionObserver === 'undefined') return undefined;
+		if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+		// Ya visible (o por encima del viewport): no se toca
+		if (el.getBoundingClientRect().top < window.innerHeight) return undefined;
 
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-        >
-            {children}
-        </motion.div>
-    );
+		el.classList.add('reveal-pending');
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (!entry.isIntersecting) return;
+				el.classList.remove('reveal-pending');
+				el.classList.add('reveal-in');
+				observer.disconnect();
+			},
+			{ rootMargin: '0px 0px -10% 0px' },
+		);
+		observer.observe(el);
+
+		return () => {
+			observer.disconnect();
+			el.classList.remove('reveal-pending');
+		};
+	}, []);
+
+	return <div ref={ref}>{children}</div>;
 };
 
 export default AnimatedSection;

@@ -26,11 +26,10 @@ const ExperienceCard = ({ exp }) => {
 
 	return (
 		/* AÑADIDO: Si es la experiencia actual (isCurrent), le damos un borde izquierdo Jade más grueso para destacarla */
-		<motion.div
+		<div
 			className={`group relative bg-white p-6 mb-4 transition-all duration-300 hover:bg-[#0d9488] hover:text-white text-left ${
 				exp.isCurrent ? 'border-l-4 border-[#0d9488] hover:border-white' : ''
-			}`}
-			variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }}>
+			}`}>
 			{/* Indicador geométrico de línea de tiempo */}
 			<div className='absolute -left-[8px] top-7 h-4 w-4 bg-primary group-hover:bg-white transition-colors transform rotate-45 z-10'></div>
 
@@ -84,7 +83,7 @@ const ExperienceCard = ({ exp }) => {
 					</AnimatePresence>
 				</>
 			)}
-		</motion.div>
+		</div>
 	);
 };
 
@@ -188,14 +187,9 @@ function Experience() {
 							<span className='text-md font-black uppercase tracking-widest text-stone-700'>{t('experience.pastExperienceTitle')}</span>
 						</div>
 
-						<motion.div
-							className='w-full space-y-4'
-							initial='hidden'
-							whileInView='visible'
-							viewport={{ once: true, amount: 0.1 }}
-							variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } }}>
+						<div className='w-full space-y-4'>
 							{Array.isArray(pastExperiences) && pastExperiences.map((exp) => <ExperienceCard key={exp.id} exp={exp} />)}
-						</motion.div>
+						</div>
 					</div>
 
 					{/* -----------------------------------------------------------

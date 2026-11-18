@@ -1,6 +1,5 @@
 /// src/sections/Studies.jsx
 import React from 'react';
-import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import SectionTitle from '../components/SectionTitle';
 import AnimatedSection from '../components/AnimatedSection';
@@ -11,9 +10,7 @@ const StudyRow = ({ study }) => {
 	const { t } = useTranslation();
 
 	return (
-		<motion.div
-			className='group relative bg-white p-6 mb-4 transition-all duration-300 hover:bg-[#0d9488] hover:text-white text-left'
-			variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }}>
+		<div className='group relative bg-white p-6 mb-4 transition-all duration-300 hover:bg-[#0d9488] hover:text-white text-left'>
 			<div className='absolute -left-[8px] top-7 h-4 w-4 bg-primary group-hover:bg-white transition-colors transform rotate-45 z-10'></div>
 
 			<h3 className='text-lg font-black text-structural group-hover:text-white transition-colors uppercase tracking-tight'>{study.title}</h3>
@@ -42,7 +39,7 @@ const StudyRow = ({ study }) => {
 					))}
 				</CollapsibleBlock>
 			)}
-		</motion.div>
+		</div>
 	);
 };
 

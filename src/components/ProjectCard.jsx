@@ -14,7 +14,7 @@ const ProjectCard = ({ project }) => {
 		<div className='bg-[#ffffff] rounded-none border border-stone-200 flex flex-col md:flex-row overflow-hidden text-left'>
 			{/* IZQUIERDA (38% en desktop): Marco técnico que respeta el formato apaisado sin recortar */}
 			{project.image && (
-				<div className='w-full md:w-2/5 lg:w-[38%] bg-stone-100 flex-shrink-0 flex items-center justify-center p-4 md:p-5 border-b md:border-b-0 md:border-r border-stone-200'>
+				<div className='w-full md:w-2/5 lg:w-[38%] flex-shrink-0 flex items-center justify-center p-4 md:p-5'>
 					<img
 						src={smallImage || project.image}
 						srcSet={smallImage ? `${smallImage} 960w, ${project.image} 1920w` : undefined}
@@ -24,7 +24,7 @@ const ProjectCard = ({ project }) => {
 						height={540}
 						loading='lazy'
 						decoding='async'
-						className='w-full h-auto max-h-64 md:max-h-none aspect-[16/10] object-contain border border-stone-200/80 bg-white'
+						className='w-full h-auto max-h-64 md:max-h-none aspect-[16/10] object-contain'
 					/>
 				</div>
 			)}

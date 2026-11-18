@@ -41,7 +41,7 @@ const DesktopSlider = ({ items, renderItem, sectionId, slidesPerView = 1 }) => {
 			<div className='absolute top-1/2 -translate-y-1/2 -left-5 z-10 hidden lg:block'>
 				<button
 					type='button'
-					className={`${prevClass} p-2.5 bg-[#eae7e2] border border-stone-300 text-stone-800 hover:bg-stone-800 hover:text-stone-100 transition-colors rounded-none`}
+					className={`${prevClass} p-2.5 bg-[#eae7e2] border border-stone-300 text-structural hover:bg-structural hover:border-structural hover:text-white transition-colors rounded-none`}
 					aria-label={isEn ? 'Previous' : 'Anterior'}>
 					<ArrowIcon className='h-5 w-5 transform rotate-180' />
 				</button>
@@ -49,7 +49,7 @@ const DesktopSlider = ({ items, renderItem, sectionId, slidesPerView = 1 }) => {
 			<div className='absolute top-1/2 -translate-y-1/2 -right-5 z-10 hidden lg:block'>
 				<button
 					type='button'
-					className={`${nextClass} p-2.5 bg-[#eae7e2] border border-stone-300 text-stone-800 hover:bg-stone-800 hover:text-stone-100 transition-colors rounded-none`}
+					className={`${nextClass} p-2.5 bg-[#eae7e2] border border-stone-300 text-structural hover:bg-structural hover:border-structural hover:text-white transition-colors rounded-none`}
 					aria-label={isEn ? 'Next' : 'Siguiente'}>
 					<ArrowIcon className='h-5 w-5' />
 				</button>

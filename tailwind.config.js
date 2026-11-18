@@ -25,10 +25,10 @@ module.exports = {
       // Dentro de tailwind.config.js -> theme -> extend
       fontFamily: {
         // Cuerpo de texto limpio y matemático
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Inter Variable', 'Inter', 'sans-serif'],
 
         // Títulos: Elige 'Oswald' o 'Bebas Neue'. Ambas son verticales y comprimidas.
-        display: ['Oswald', 'sans-serif'],
+        display: ['Oswald Variable', 'Oswald', 'sans-serif'],
 
         // Detalles técnicos e ingeniería
         mono: ['Space Mono', 'monospace'],

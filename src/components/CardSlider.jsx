@@ -59,10 +59,10 @@ const CardSlider = ({ items, renderItem }) => {
 			</div>
 
 			{/* Controles Geométricos: Fondos Transparentes y Sin Sombras */}
-			<button type='button' onClick={goToPrevious} className='absolute top-[40%] -left-2 z-10 p-2 bg-transparent text-stone-700 rounded-none' aria-label={isEn ? 'Previous' : 'Anterior'}>
+			<button type='button' onClick={goToPrevious} className='absolute top-[40%] -left-2 z-10 p-2 bg-transparent text-stone-700 hover:bg-structural hover:text-white transition-colors rounded-none' aria-label={isEn ? 'Previous' : 'Anterior'}>
 				<ArrowIcon className='h-5 w-5 transform rotate-180' />
 			</button>
-			<button type='button' onClick={goToNext} className='absolute top-[40%] -right-2 z-10 p-2 bg-transparent text-stone-700 rounded-none' aria-label={isEn ? 'Next' : 'Siguiente'}>
+			<button type='button' onClick={goToNext} className='absolute top-[40%] -right-2 z-10 p-2 bg-transparent text-stone-700 hover:bg-structural hover:text-white transition-colors rounded-none' aria-label={isEn ? 'Next' : 'Siguiente'}>
 				<ArrowIcon className='h-5 w-5' />
 			</button>
 

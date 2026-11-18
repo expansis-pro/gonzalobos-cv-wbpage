@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { FaWhatsapp, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { GITHUB_URL, LINKEDIN_URL, WHATSAPP_URL } from '../seo';
 
 const buttonBase =
 	'flex items-center justify-center gap-3 border-2 border-stone-400 text-stone-200 font-black py-2.5 px-6 rounded-none text-xs uppercase tracking-widest transition-colors duration-200 shadow-none';
@@ -31,17 +32,12 @@ function Footer() {
 	const langLinkClass = (lang) => `hover:text-primary transition-colors ${currentLang === lang ? 'font-black underline underline-offset-4' : 'font-medium'}`;
 
 	return (
-		<motion.footer
-			className='w-full bg-stone-100 py-12'
-			initial={{ opacity: 0, y: 10 }}
-			whileInView={{ opacity: 1, y: 0 }}
-			viewport={{ once: true }}
-			transition={{ duration: 0.4, ease: 'easeOut' }}>
+		<footer className='w-full bg-stone-100 py-12'>
 			<div className='container mx-auto px-2 max-w-6xl flex flex-col items-start space-y-8 text-left'>
 				{/* 1. BOTONES: bloques verticales en mobile y fila en desktop */}
 				<div className='flex flex-col sm:flex-row justify-start gap-4 w-full items-stretch sm:items-center'>
 					<motion.a
-						href='https://api.whatsapp.com/send/?phone=56965961086&text&type=phone_number&app_absent=0'
+						href={WHATSAPP_URL}
 						target='_blank'
 						rel='noopener noreferrer'
 						className={`${buttonBase} hover:bg-emerald-800 hover:border-emerald-800`}
@@ -66,7 +62,7 @@ function Footer() {
 					</motion.button>
 
 					<motion.a
-						href='https://www.linkedin.com/in/gonzalo-lobos-ram%C3%ADrez/'
+						href={LINKEDIN_URL}
 						target='_blank'
 						rel='noopener noreferrer'
 						className={`${buttonBase} hover:bg-sky-800 hover:border-sky-800`}
@@ -76,7 +72,7 @@ function Footer() {
 					</motion.a>
 
 					<motion.a
-						href='https://github.com/lobosgonza'
+						href={GITHUB_URL}
 						target='_blank'
 						rel='noopener noreferrer'
 						className={`${buttonBase} hover:bg-primary hover:border-primary`}
@@ -128,7 +124,7 @@ function Footer() {
 					</motion.button>
 				</div>
 			</div>
-		</motion.footer>
+		</footer>
 	);
 }
 
