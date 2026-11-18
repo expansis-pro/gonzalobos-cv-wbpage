@@ -1,10 +1,9 @@
 // src/components/DesktopSlider.jsx
-import React from 'react';
+import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const ArrowIcon = (props) => (
@@ -16,21 +15,25 @@ const ArrowIcon = (props) => (
 const DesktopSlider = ({ items, renderItem, sectionId, slidesPerView = 1 }) => {
 	const { i18n } = useTranslation();
 	const isEn = i18n.language === 'en';
-	const nextClass = `slider-next-${sectionId}`;
-	const prevClass = `slider-prev-${sectionId}`;
+	// Las flechas controlan la instancia directamente (sin buscar botones por clase CSS)
+	const swiperRef = useRef(null);
+	const arrowClass =
+		'p-2.5 bg-[#eae7e2] border border-stone-300 text-structural hover:bg-structural hover:border-structural hover:text-white transition-colors rounded-none';
 
 	return (
 		<div className='relative w-full'>
 			<Swiper
-				modules={[Navigation, Pagination]}
+				modules={[Pagination]}
+				onSwiper={(swiper) => {
+					swiperRef.current = swiper;
+				}}
 				loop={true}
+				// Cada clic cuenta aunque la transición anterior no haya terminado
+				loopPreventsSliding={false}
 				pagination={{ clickable: true }}
 				spaceBetween={32}
 				slidesPerView={slidesPerView}
-				navigation={{
-					nextEl: `.${nextClass}`,
-					prevEl: `.${prevClass}`,
-				}}
+				id={`${sectionId}-slider`}
 				className='!py-4 !pb-14'>
 				{items.map((item) => (
 					<SwiperSlide key={item.id}>{renderItem(item)}</SwiperSlide>
@@ -38,18 +41,23 @@ const DesktopSlider = ({ items, renderItem, sectionId, slidesPerView = 1 }) => {
 			</Swiper>
 
 			{/* Controles laterales estilo plano técnico */}
-			<div className='absolute top-1/2 -translate-y-1/2 -left-5 z-10 hidden lg:block'>
+			{/* Móvil/tablet: en la fila de la paginación, bajo la tarjeta (no tapan contenido). Desktop: a los costados */}
+			<div className='absolute bottom-1 left-0 lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2 lg:-left-5 z-10'>
 				<button
 					type='button'
-					className={`${prevClass} p-2.5 bg-[#eae7e2] border border-stone-300 text-structural hover:bg-structural hover:border-structural hover:text-white transition-colors rounded-none`}
+					onClick={() => swiperRef.current?.slidePrev()}
+					aria-controls={`${sectionId}-slider`}
+					className={arrowClass}
 					aria-label={isEn ? 'Previous' : 'Anterior'}>
 					<ArrowIcon className='h-5 w-5 transform rotate-180' />
 				</button>
 			</div>
-			<div className='absolute top-1/2 -translate-y-1/2 -right-5 z-10 hidden lg:block'>
+			<div className='absolute bottom-1 right-0 lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2 lg:-right-5 z-10'>
 				<button
 					type='button'
-					className={`${nextClass} p-2.5 bg-[#eae7e2] border border-stone-300 text-structural hover:bg-structural hover:border-structural hover:text-white transition-colors rounded-none`}
+					onClick={() => swiperRef.current?.slideNext()}
+					aria-controls={`${sectionId}-slider`}
+					className={arrowClass}
 					aria-label={isEn ? 'Next' : 'Siguiente'}>
 					<ArrowIcon className='h-5 w-5' />
 				</button>
