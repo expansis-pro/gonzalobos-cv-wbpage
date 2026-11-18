@@ -4,3 +4,9 @@ dist/
 .env.*
 *.log
 .firebase/
+functions/node_modules/
+functions/.secret.local
+.env.local
+firebase-debug.log*
+.vercel
+.env*.local

@@ -2,8 +2,10 @@
   "name": "gonzalo-lobos-webpage",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "framer-motion": "^11.9.0",
     "i18next": "^25.5.2",
     "i18next-browser-languagedetector": "^8.2.0",

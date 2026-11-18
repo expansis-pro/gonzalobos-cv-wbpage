@@ -2,11 +2,11 @@
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-// Endpoint del servidor (Cloud Function vía rewrite de Firebase Hosting).
+// Endpoint del servidor (Vercel Function en api/contact.js, mismo origen).
 // La API Key de Resend NUNCA vive en el cliente.
-const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL || 'https://contact-api.gonzalobos.com/api/contact';
+const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL || '/api/contact';
 
-// Debe coincidir con HONEYPOT_FIELD en functions/contact-handler.js
+// Debe coincidir con HONEYPOT_FIELD en api/contact.js
 const HONEYPOT_FIELD = 'hp_website';
 
 export const ContactForm = () => {
