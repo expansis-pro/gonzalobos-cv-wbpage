@@ -4,7 +4,7 @@ export const SITE_URL = 'https://gonzalobos.com';
 export const SITE_NAME = 'Gonzalo Lobos';
 export const SUPPORTED_LANGS = ['es', 'en'];
 export const DEFAULT_LANG = 'es';
-export const LAST_MODIFIED = '2026-11-12';
+export const LAST_MODIFIED = '2026-11-18';
 // URL canónica de la portada (x-default). La raíz "/" hace 301 → /es, por eso no se usa en el schema.
 export const HOME_URL = `${SITE_URL}/${DEFAULT_LANG}`;
 
